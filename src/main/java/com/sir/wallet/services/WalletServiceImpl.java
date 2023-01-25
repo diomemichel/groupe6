@@ -18,21 +18,32 @@ public class WalletServiceImpl implements WalletService {
         return walletRepository.findById(id);
     }
 
+
+
     @Override
     public Wallet saveWallet(Wallet wallet) {
         //walletRepository.save(wallet);
-        return walletRepository.save(wallet);
+        Wallet w;
+
+            w = walletRepository.save(wallet);
+
+        return w;
     }
 
     @Override
-    public Wallet updateWallet(Long id, Wallet wallet) {
+    public Wallet updateWallet(Long id, Wallet wallet) throws Exception {
+        if (!walletRepository.existsById(id)) {
+            throw new Exception("n'existe pas dans la base de données");
+        }
+        Wallet w = walletRepository.getById(id);//ancienne solde
+        w.setBalance(wallet.getBalance() + w.getBalance());//nouvelle solde
 
-        return null;
+        return walletRepository.save(w);
     }
 
     @Override
-    public void deleteWallet(Wallet wallet) {
-
+    public void deleteWallet(Long id) {
+        walletRepository.deleteById(id);
     }
 
     @Override

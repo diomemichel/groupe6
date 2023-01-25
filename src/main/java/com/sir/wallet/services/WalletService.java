@@ -10,9 +10,9 @@ public interface WalletService {
 
     Wallet saveWallet(Wallet wallet);
 
-    Wallet updateWallet(Long id, Wallet wallet);
+    Wallet updateWallet(Long id, Wallet wallet) throws Exception;
 
-    void deleteWallet(Wallet wallet);
+    void deleteWallet(Long id);
 
     Iterable<Wallet> getAllWallets();
 }
